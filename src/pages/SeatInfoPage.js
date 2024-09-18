@@ -67,7 +67,6 @@ const SeatInfoPage = () => {
           <p>빈 좌석: {emptySeats}개</p>
           <p>예약된 좌석: {reservedSeats}개</p>
         </div>
-        <button onClick={goToNextPage} style={styles.nextPageButton}>다음 페이지로 이동</button>
       </div>
     </Modal>
   );
