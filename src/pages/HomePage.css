@@ -1,0 +1,61 @@
+/* 기본 레이아웃 */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #74ebd5, #9face6); /* 배경을 그라데이션으로 설정 */
+  animation: fadeIn 1s ease-in; /* 페이지가 서서히 나타나는 애니메이션 */
+  color: #fff;
+}
+
+/* 텍스트 애니메이션 */
+.home-title {
+  font-size: 3rem;
+  margin-bottom: 40px;
+  animation: slideDown 1.5s ease-out; /* 텍스트가 슬라이드 다운 되는 효과 */
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+/* 버튼 스타일 */
+.start-button {
+  display: inline-block;
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease;
+}
+
+/* 버튼에 호버 시 애니메이션 */
+.start-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.1); /* 버튼이 살짝 커지며 강조되는 효과 */
+}
+
+/* 전체 페이지 페이드 인 효과 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 제목 슬라이드 다운 효과 */
+@keyframes slideDown {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

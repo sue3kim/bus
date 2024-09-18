@@ -1,0 +1,77 @@
+/* 전체 화면 배치 */
+.transport-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffecd2, #fcb69f); /* 따뜻한 그라데이션 배경 */
+  animation: fadeIn 1.5s ease-in; /* 화면이 서서히 나타나는 효과 */
+  color: #333; /* 텍스트 색상 */
+}
+
+/* 제목 스타일과 애니메이션 */
+.transport-title {
+  font-size: 3rem;
+  margin-bottom: 50px;
+  animation: bounceIn 1s ease-out; /* 텍스트가 살짝 튀어오르며 나타나는 효과 */
+}
+
+/* 버튼 배치: flex-direction을 column으로 변경하여 버튼들이 세로로 정렬되도록 함 */
+.button-container {
+  display: flex;
+  flex-direction: column; /* 버튼을 세로로 정렬 */
+  align-items: center; /* 가운데 정렬 */
+  gap: 40px; /* 버튼 사이에 더 많은 간격 추가 */
+}
+
+/* 버튼 스타일 */
+.transport-button {
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  color: #fff;
+  background-color: #ff6f61;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+}
+
+/* 버튼에 마우스 오버 시 효과 */
+.transport-button:hover {
+  background-color: #ff3f3f;
+  transform: scale(1.05); /* 버튼이 살짝 커지는 효과 */
+}
+
+/* 링크 스타일을 없애기 위한 설정 */
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 화면 페이드 인 효과 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 텍스트 바운스 효과 */
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
