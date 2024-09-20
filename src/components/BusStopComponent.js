@@ -1,3 +1,4 @@
+// src/components/BusStopComponents.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // useNavigate 추가
 
@@ -7,7 +8,8 @@ const Modal = ({ show, onClose, station, busInfo }) => {
   if (!show) return null;
 
   const handleBusClick = (bus) => {
-    navigate(`/seat-info?busNumber=${bus}`); // 버스 번호를 쿼리 파라미터로 전달하며 페이지 이동
+    // stationId를 쿼리 파라미터로 추가하여 seat-info 페이지로 이동
+    navigate(`/seat-info?stationId=${station.stNm}&busNumber=${bus}`);
   };
 
   const buttons = busInfo.map((bus, index) => (

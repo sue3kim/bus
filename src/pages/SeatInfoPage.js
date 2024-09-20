@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SeatMap from '../components/SeatMap';
 import Modal from '../components/Modal';
+import axios from 'axios'; 
 
 const SeatInfoPage = () => {
   const [seatData, setSeatData] = useState([]);
@@ -12,22 +13,56 @@ const SeatInfoPage = () => {
   const searchParams = new URLSearchParams(location.search);
   const stationId = searchParams.get('stationId');
 
+  // 좌석 번호와 배열 위치를 매핑하기 위한 테이블
+  const seatMap = {
+    "1A": [1, 0], "1E": [1, 4],
+    "2A": [2, 0], "2E": [2, 4],
+    "3A": [3, 0], "3E": [3, 4],
+    "4A": [4, 0], "4E": [4, 4],
+    "5A": [5, 0], "5B": [5, 1], "5D": [5, 3], "5E": [5, 4],
+    "6A": [6, 0], "6B": [6, 1], "6D": [6, 3], "6E": [6, 4],
+    "7A": [7, 0], "7B": [7, 1], "7D": [7, 3], "7E": [7, 4],
+    "8A": [8, 0], "8B": [8, 1], "8C": [8, 2], "8D": [8, 3], "8E": [8, 4],
+  };
+
   useEffect(() => {
-    console.log(`정류장 ID: ${stationId}`);
+    const fetchSeatData = async () => {
+      try {
+        const response = await axios.get(`http://43.201.255.0:8000/api/seats`);
+        const seatStatus = response.data;
 
-    const fetchedSeatData = [
-      [' ', ' ', ' ', ' ', ' '],
-      ['O', ' ', ' ', ' ', 'O'],
-      ['O', ' ', ' ', ' ', 'O'],
-      ['O', ' ', ' ', ' ', 'O'],
-      ['O', ' ', ' ', ' ', ' '],
-      ['O', 'O', ' ', 'O', 'O'],
-      ['O', 'O', ' ', 'O', 'O'],
-      ['O', 'O', ' ', 'O', 'O'],
-      ['O', 'O', 'O', 'O', 'O'],
-    ];
+        // 초기 좌석 배열을 정의
+        const initialSeatData = [
+          [' ', ' ', ' ', ' ', ' '],
+          ['O', ' ', ' ', ' ', 'O'],
+          ['O', ' ', ' ', ' ', 'O'],
+          ['O', ' ', ' ', ' ', 'O'],
+          ['O', ' ', ' ', ' ', ' '],
+          ['O', 'O', ' ', 'O', 'O'],
+          ['O', 'O', ' ', 'O', 'O'],
+          ['O', 'O', ' ', 'O', 'O'],
+          ['O', 'O', 'O', 'O', 'O'],
+        ];
 
-    setSeatData(fetchedSeatData);
+        // API 데이터를 바탕으로 좌석 배열 상태 업데이트
+        for (const [seatNumber, status] of Object.entries(seatStatus)) {
+          const [row, col] = seatMap[seatNumber];
+          if (status === 'Available') {
+            initialSeatData[row][col] = 'O';  // 빈 좌석
+          } else {
+            initialSeatData[row][col] = 'X';  // 예약된 좌석
+          }
+        }
+
+        setSeatData(initialSeatData);
+      } catch (error) {
+        console.error('Error fetching seat data:', error);
+      }
+    };
+
+    if (stationId) {
+      fetchSeatData();
+    }
   }, [stationId]);
 
   const handleSeatClick = (rowIndex, seatIndex) => {
@@ -52,10 +87,6 @@ const SeatInfoPage = () => {
   const closeModal = () => {
     setShowModal(false);
     navigate('/bus');
-  };
-
-  const goToNextPage = () => {
-    navigate('/nextPage'); // 원하는 페이지로 이동
   };
 
   return (
@@ -94,16 +125,6 @@ const styles = {
     padding: '5px',
     borderRadius: '8px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-  },
-  nextPageButton: {
-    marginTop: '20px',
-    padding: '10px 20px',
-    fontSize: '1rem',
-    backgroundColor: '#007bff',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
   },
 };
 
