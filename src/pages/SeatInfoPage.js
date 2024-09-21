@@ -28,7 +28,7 @@ const SeatInfoPage = () => {
   useEffect(() => {
     const fetchSeatData = async () => {
       try {
-        const response = await axios.get(`http://3.36.50.16:8000/api/seats`);
+        const response = await axios.get(`http://13.125.243.97:8000/api/seats/`);
         const seatStatus = response.data;
 
         // 초기 좌석 배열을 정의
